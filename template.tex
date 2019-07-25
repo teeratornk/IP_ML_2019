@@ -73,6 +73,7 @@ bottom = 40mm
 }
 
 \newcommand{\shlee}[1]{{\textcolor{blue}{#1}}}
+\newcommand{\meen}[1]{{\textcolor{green}{#1}}}
 
 \newcommand{\bdf}[2]{{\textup{\textsf{BDF}}_{#2}\left({#1}\right)}}
 \newcommand{\BDF}[1]{\bdf{\left( #1 \right)}{2}}
@@ -238,14 +239,21 @@ Figure \ref{fig:dofs} illustrates the different degrees of freedom for CG, DG, a
 
 \section{Machine Learning}
 
+\subsection{Logistic regression}
+
+\subsection{Classification}
+
 \section{Numerical Results}
 
 \subsection{Darcy with IIPG and SIPG}
+
+\meen{Note that we have results for 1. IIPG with direct solver, 2. IIPG with iterative solver, 3. SIPG with direct solver, and 4. SIPG with iterative solver}
 
 \subsection{Darcy with Direct solver and Iterative solver}
 
 \subsection{Biot}
 
+\meen{As discussed, we will show only the result of SIPG with direct solver.}
 
 \bibliography{lit}
 
