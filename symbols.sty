@@ -1,0 +1,175 @@
+
+%%\include{symbols}
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\eou}{\rule[-0.2mm]{2.5mm}{2.5mm}} %usata
+\renewcommand\lll{|\kern-1pt|\kern-1pt|} %usata
+\newcommand{\deK}{\partial\K} 
+\renewcommand{\O}{\Omega} %usata
+\renewcommand{\div}{{\rm div}} %usata
+
+%\newcommand{\grad}{{\boldsymbol \nabla}}
+
+\renewcommand{\a}[2]{a\,(#1,#2)}
+\newcommand{\ah}[2]{a_{h}\,(#1,#2)}%usata
+\newcommand{\bhupw}[2]{b^{\rm s}_{h}\,(#1,#2)}%usata
+\newcommand{\n}{{\bf n}} %usata
+\newcommand{\vh}{v_h}
+%%%%%%%%%%%%%%%%%%%%%%\newcommand{\de}{\partial\O} %usata
+\newcommand{\de}{\partial\Omega} %usata
+\newcommand{\dx}{\,\mbox{d}x} %usata
+\newcommand{\ds}{\,\mbox{d}s} %usata
+%%%%%\newcommand{\jump}[1]{\lbrack\!\lbrack\,#1\,\rbrack\!\rbrack} %usata
+\newcommand{\jump}[1]{\left\lbrack\!\left\lbrack #1 \right\rbrack\!\right\rbrack} %usata
+\newcommand{\jtau}{\jump{\taub}} %usata
+\newcommand{\taub}{{\boldsymbol {\tau}}}
+\newcommand{\jsigma}{\jump{\sigmab}} %usata
+\newcommand{\sigmab}{{\boldsymbol {\sigma}}(u)}
+\newcommand{\jsdiff}{\jump{\sbdiff}} %usata
+%\newcommand{\sbdiff}{{\boldsymbol {\sigma}}_{\diff}(u)}
+\newcommand{\jsconv}{\jump{\sbconv}} %usata
+\newcommand{\sbconv}{{\boldsymbol {\sigma}}_{\conv}(u)}
+%\newcommand{\rosso}[1]{\color{red} #1} % rosso
+\newcommand{\h}{\widetilde{h}}
+\newcommand{\Vc}{V^{\rm{conf}}_{\h}}
+\newcommand{\Vcr}{V_{h}^{CR}} 
+% Vettore
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+%MANCA LA {\mathcal T}AU
+\newcommand{\jv}{\jump{v}} %usata
+\newcommand{\jvh}{\jump{v_h}} %usata
+\newcommand{\ju}{\jump{u}} %usata
+\newcommand{\juh}{\jump{\uh}} %usata
+\newcommand{\jphi}{\jump{\varphi}} %usata
+%%%%%%%%%%%%%%%%%%%\newcommand{\av}[1]{\{#1\}} %usata
+\newcommand{\av}[1]{\left\{ #1 \right\}} 
+\newcommand{\avtau}{\av{\taub}} %usata
+\newcommand{\Eh}{{{\mathcal E}_h}} %usata
+\newcommand{\Eho}{{{\mathcal E}^{I}_h}} %usata
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\Th}{\mathcal{T}_h}
+\newcommand{\K}{T}
+\newcommand{\dyle}{\displaystyle}
+\newcommand{\Ehb}{{{\mathcal E}^{\partial}_h}} %usata
+%% some arrows...
+\newcommand{\Lor }{\Longrightarrow}
+\renewcommand{\lor }{\longrightarrow}
+\newcommand{\lord}{\rightharpoonup}
+\newcommand{\ssi }{\Leftrightarrow}
+\newcommand{\SSii }{\Longleftrightarrow}
+%\newcommand{\bil }{\arrowvert}
+%\newcommand{\bia }{\bracevert}
+\newcommand{\salvo }{\smallsetminus}
+%\newcommand{\diff}{\epsilon} %usata
+%\newcommand{\Th}{\mathcal{T}_h} %usata
+%\newcommand{\hK}{\h_{\K}} %usata
+%\newcommand{\h}{h} %usata
+\newcommand{\sumK}{\sum_{\K \in \Th}} %usata
+\newcommand{\sumE}{\sum_{e \in \Eh}} %usata
+\newcommand{\sumEint}{\sum_{e \in \Eho}} %usata
+\newcommand{\intK}{\int_{\K} }%usata
+\newcommand{\intdeK}{\int_{\deK} }%usata
+\newcommand{\intmeno}{\int_{\deK \cap \Gamma_-} }%usata
+\newcommand{\summeno}{\sum_{e \subset \Gamma_-} }%usata
+\newcommand{\sumpiu}{\sum_{e \not\subset \Gamma_-} }%usata
+\newcommand{\sumgampiu}{\sum_{e \not\subset \Gamma_+} }%usata
+\newcommand{\Vh}{V^k_{\h}}%usata
+%\newcommand{\btheta}{\theta}%usata
+\newcommand{\vspeq}{\vspace{6mm}}
+\newcommand{\Ph}{P^k_h}%usata
+%---------------------------------------------------------------
+%FOR ALL
+\newcommand{\fa}{\forall\,} 
+% --------------------------------------------------------------
+% virgolette
+\newcommand{\virgo}[1]  {``#1''}
+%---------------------------------------------------------------
+% Vettore
+%\newcommand{\vect}[1]{\boldsymbol{#1}}  
+%---------------------------------------------------------------
+%--------------------------------------
+% DIVERGENCE
+\renewcommand{\div}{\textrm{div}}
+%--------------------------------------
+%--------------------------------------
+% DIVERGENCE
+%\newcommand{\dim}{\textrm{dim}}
+%--------------------------------------
+\newcommand{\wpi}{ \widetilde{\Pi}}
+\newcommand{\wP}{ \widetilde{P}}
+\newcommand{\wB}{ \widetilde{B}}
+\newcommand{\wA}{ \widetilde{A}}
+\newcommand{\wo}{ \widetilde{A}_0}
+\newcommand{\we}{ \hat{e}}
+\newcommand{\wK}{ \widehat{\K}}
+%\newcommand{\calN}{ \mathcal{N}}
+%\newcommand{\calT}{ \mathcal{T}}
+%\newcommand{\calI}{ \mathcal{I}}
+%\newcommand{\calK}{ \mathcal{K}}
+\newcommand{\Ae}{\av{\A}_{|_{e}}}
+%\newcommand{\mathcalW}{ \mathcal{W}}
+%\newcommand{\mathcalQ}{ \mathcal{Q}}
+\long\def\COMMENT#1{\par\vbox{\hrule\vskip1pt#1\vskip1pt\hrule}} %%
+%---------------------------------------------------------------
+% COMANDI COLORE TESTO
+\newcommand{\rosa}[1]{\color{magenta} #1} % magenta
+\newcommand{\nero}[1]{\color{black} #1} % nero  
+\newcommand{\rosso}[1]{\color{red} #1} % rosso
+\newcommand{\blu}[1]{\color{blue} #1} % blu
+\newcommand{\gray}[1]{\color{gray} #1} %grigio
+\newcommand{\verde}[1]{\color{green} #1} %grigio
+\newcommand{\verdi}[1]{\color{darkgreen} #1} %grigio
+
+% --------------------------------------------------------------
+\newcommand{\ltz}[1]{{\color{blue} #1}}
+% --------------------------------------------------------------
+
+
+%\newcommand{\A}{ \mathfrak{K}}
+\newcommand{\eui}{\eta}%usata
+\newcommand{\euh}{\delta}%usata
+\newcommand{\nn}{|\!|} %usata
+\newcommand{\LL}{{\rm{L}}}
+\newcommand{\mathcalB}{\mathcal{B}}
+%\newcommand{\calA}{ \mathcal{A}}
+%\newcommand{\calB}{ \mathcal{B}}
+%\newcommand{\calR}{ \mathcal{R}}
+%\newcommand{\calV}{ \mathcal{V}}
+%\newcommand{\calQ}{ \mathcal{Q}}
+%\newcommand{\calP}{ \mathcal{P}}
+%\newcommand{\calP}{ \mathcal{P}}
+%\newcommand{\calF}{ \mathcal{F}}
+%\newcommand{\calE}{ \mathcal{E}}
+%\newcommand{\calZ}{ \mathcal{Z}}
+%\newcommand{\calS}{ \mathcal{S}}
+%\newcommand{\calM}{ \mathcal{M}}
+%\newcommand{\bV}{ \mathbb{V}}
+%\newcommand{\bW}{ \mathbb{W}}
+\newcommand{\mathcalW}{ \mathcal{W}}
+\newcommand{\mathcalU}{ \mathcal{U}}
+\newcommand{\re}{ \mathbb{R}}
+\newcommand{\BB}{\bf \mathcal{B}}
+\newcommand{\CC}{{\rm{C}}}
+%\newcommand{\HH}{{\rm{H}}}
+%\newcommand{\PP}{{\rm{P}}}
+\newcommand{\GD}{\Gamma_D}
+\newcommand{\GN}{\Gamma_N}
+\newcommand{\GDplus}{\Gamma_D^+}
+\newcommand{\GDminus}{\Gamma_D^-}
+\newcommand{\GNplus}{\Gamma_N^+}
+\newcommand{\GNminus}{\Gamma_N^-}
+\newcommand{\supg}{\delta}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Triple bar norm
+\newcommand{\triplenorm}[1]{%
+ \left\vert\kern-0.9pt\left\vert\kern-0.9pt\left\vert #1
+ \right\vert\kern-0.9pt\right\vert\kern-0.9pt\right\vert}  
+%%%%
+
+\newcommand{\Reals}[1]{{\rm I\! R}^{#1}}
+\newcommand{\ccoer}{c}
+\newcommand{\ccont}{C}
+\newcommand{\RE}{\mathds{R}}

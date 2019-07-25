@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Mathematical Model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Biot's system for poroelasticity}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Numerical Discretizations}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Finite element approximations}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Machine Learning}{}% 6
+\BOOKMARK [1][-]{section.5}{Numerical Results}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{Darcy with IIPG and SIPG}{section.5}% 8
+\BOOKMARK [2][-]{subsection.5.2}{Darcy with Direct solver and Iterative solver}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.3}{Biot}{section.5}% 10

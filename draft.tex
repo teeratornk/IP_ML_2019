@@ -1,0 +1,217 @@
+\documentclass[11pt]{article}
+
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,afterpage,hyperref}
+\usepackage[makeroom]{cancel}
+\usepackage{mathtools}
+\usepackage{amscd,subeqnarray}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+ 
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{abbrvnat}
+ 
+
+\usepackage{graphics}
+\usepackage[pdftex]{graphicx}
+\usepackage{epsfig}
+
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{lineno}
+\usepackage{ragged2e}
+\usepackage{subfig}
+\usepackage{stmaryrd}
+
+\usepackage{soul}
+%\usepackage{SIunits}
+%\usepackage{psfig}
+\usepackage{boldfonts}
+\usepackage{symbols}
+\newtheorem{remark}{Remark}
+
+\usepackage[export]{adjustbox}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+
+
+\usepackage{xcolor,cancel}
+
+\newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+%\usepackage{boldfonts}
+%\usepackage{symbols}
+
+\usepackage{tikz, xcolor}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes,arrows}
+\usepackage{siunitx} 
+
+\usepackage{geometry}
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+left=20mm,
+top=30mm,
+right=20mm,
+bottom = 40mm
+}
+
+\newcommand{\shlee}[1]{{\textcolor{blue}{#1}}}
+
+\newcommand{\bdf}[2]{{\textup{\textsf{BDF}}_{#2}\left({#1}\right)}}
+\newcommand{\BDF}[1]{\bdf{\left( #1 \right)}{2}}
+
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+\def\p{\partial}
+\newtheorem{form}{Formulation}
+
+\usepackage{sectsty}
+\sectionfont{\large}
+
+
+
+
+\begin{document}
+
+\begin{center}
+{\Large{\textsc{
+Choice of interior penalty coefficient for interior penalty discontinuous Galerkin method by employing machine learning}
+}
+}
+\end{center}
+
+
+\begin{center}
+{{\textsc{
+Sanghyun, Meen}
+}
+}
+\end{center}
+
+\section{Introduction}
+
+Discontinuous Galerkin finite element method (DG) is employed for various realistic applications, especially with discontinuous coefficients. The main advantages for DG are XXX, YYY, and ZZZ. Mathematical analyses for stability and error convergence are shown in for elliptic problems in [citation]. 
+These studies are proved under an assumption on the interior penalty, and it is   crucial to employ the interior penalty term being sufficiently large enough. 
+Several studies of the lower bounds for the penalty parameter have been obtained in \cite{ainsworth2007posteriori,ainsworth2010fully,ainsworth2009constant,epshteyn2007estimation,shahbazi2005explicit}. Moreover, specific illustrations on the selection of the penalty parameters are shown in \cite{ainsworth2012note}.
+
+%Recently, EG?
+
+A lower bound for the standard DG was given for the case when there is an arbitrary number of hanging nodes in the mesh and elements of arbitrary nonuniform polynomial order in \cite{shahbazi2005explicit}.
+This bound was improved upon in \cite{ainsworth2009constant} in the case when there was at most one hanging node per edge of each element, which lay at the midpoint of the edge. 
+In cases where the diffusion coefficient is discontinuous, it has been suggested that a nonstandard DG is used in which a weighted interior penalty term is employed \cite{ern2008posteriori,ern2009discontinuous}. 
+It is of considerable practical interest to
+determine bounds on the interior penalty parameter sufficient for this variant of DG to give
+a well-defined numerical approximation. 
+A bound which is
+applicable to the case when there is an arbitrary number of hanging nodes and elements may be of arbitrary nonuniform polynomial order is shown in  \cite{ainsworth2012note}.
+
+
+Conclusion
+\begin{itemize}
+\item For Darcy with smooth coefficients : need a minimum $\beta$ but not the maximum for optimal convergence rate. However, the iterative solver is affected.
+\item For Darcy with non-smooth coefficients : To observe sub-optimal convergence rate, minimum and maximum bound for $\beta$ is required. 
+\item For Biot's equations : to avoid oscillations, optimal choice of $\beta$ is required. Here we employ SIPG and iterative solver. 
+\end{itemize}
+
+\section{Mathematical Model}
+We consider the following elliptic system,  
+\begin{equation}\label{eq-main}
+\left\{ 
+\begin{array}{rll} 
+-\nabla \cdot (K \nabla p)
+&=  f
+& \textrm{in}~\Omega, \\
+u&=0& \textrm{on}~\partial \Omega,
+\end{array}
+\right.
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%]
+where a bounded, open, and convex domain is denoted by 
+$\Omega \subset \mathbb{R}^d (d \in {2,3})$, $K\in \mathbb{R}^{d\times d}$ and $f \in L_2(\Omega)$.
+
+Then the weak solution $p \in H_0^{1}(\Omega)$ 
+of \eqref{eq-main} is given by 
+\begin{equation}
+\int_\Omega K \nabla p \nabla v \ dx = 
+\int_\Omega f  v \ dx, \ \ \ \forall v \in H_0^1(\Omega)
+\label{eq-weak}
+\end{equation}
+where $H_0^1(\Omega):= \{  v \in H^1(\Omega): v = 0 \text{ on } \partial \Omega \}$
+
+\subsection{Biot's system for poroelasticity}
+
+\section{Numerical Discretizations}
+\subsection{Finite element approximations}
+Let $\mathcal{T}_h$ be the shape-regular (in the sense of Ciarlet)  triangulation by a family of partitions of $\O$ into $d$-simplices $\K$ (triangles/squares in $d=2$ or tetrahedra/cubes in $d=3$). We denote by $h_{\K}$ the diameter of $\K$ and we set $h=\max_{\K \in \Th} h_{\K}$.  
+Also we denote by $\Eh$ the set of all edges and by $\Eho$ and $\Ehb$ the collection of all interior and boundary edges, respectively. 
+In the following notation, we assume edges for two dimension but the results hold analogously for faces in three dimensional case.
+The space $H^{s}(\Th)$ $(s\in \mathbb{R})$ is the set of element-wise $H^{s}$ functions on $\mathcal{T}_h$, and $L^{2}(\Eh)$ refers to the set of functions whose traces on the elements of $\Eh$ are square integrable. Let $\mathbb{Q}_l(\K)$ denote the space of polynomials of partial degree at most $l$. 
+Throughout the paper, we use the standard notation for Sobolev spaces and their norms. For example, let $E \subseteq \Omega$, then $\|\cdot\|_{1,E}$ and $|\cdot|_{1,E}$ denote the $H^1(E)$ norm and seminorm, respectively. 
+For simplicity, we eliminate the subscripts on the norms if $E = \Omega$.
+For any $e \in \Eho$, let $\K^{+}$ and $\K^{-}$ be two neighboring elements such that  
+$$
+e = \partial \K^{+}\cap \partial \K^{-}
+$$
+and we denote by $h_{e}$ the length of the edge $e$. 
+Let $\n^{+}$ and $\n^{-}$ be the outward normal unit vectors to  $\partial T^+$ and $\partial T^-$, respectively ($\n^{\pm} :=\n_{|\K^{\pm}}$). 
+For any given function $\xi$ and vector function $\bxi$, defined on the triangulation $\mathcal{T}_h$, we denote $\xi^{\pm}$ and $\bxi^{\pm}$ by the restrictions of $\xi$ and $\bxi$ to $T^\pm$, respectively. 
+
+Next, we define the  average $\av{\cdot}$ as follows: for $\zeta \in L^2(\mathcal{T}_h)$ and $\taub \in L^2(\mathcal{T}_h)^d$,
+\begin{equation}\label{av-w}
+\av{\zeta} := \frac{1}{2} (\zeta^+ + \zeta^- )
+\quad \mbox{ and } \quad 
+\av{\taub} := \frac{1}{2} (\taub^+ +   \taub^-) \quad \mbox{on } e\in
+\Eho.
+\end{equation}
+On the other hand, for $e \in \Ehb$, we set $\av{\zeta} :=   \zeta$ and $\av{\taub} :=  \taub$. 
+The jump across the interior edge will be defined as 
+\begin{align*}
+\jump{\zeta} = \zeta^+\n^++\zeta^-\n^- \quad \mbox{ and } \quad \jtau = \taub^+\cdot\n^+ + \taub^-\cdot\n^- \quad \mbox{on } e\in \Eho. 
+\end{align*}
+For  $e \in \Ehb$, we let $\jump{\zeta} :=  \zeta \bn$ and $\jump{\taub} :=  \taub \cdot \bn$. 
+
+We  introduce the space of piecewise discontinuous polynomials of degree $l$ by
+\begin{equation}
+M^l(\mathcal{T}_h) := \left \{ \psi \in L^2(\Omega) | \ \psi_{|_{\K}} \in \mathbb{Q}_l(\K), \ \forall \K \in \mathcal{T}_h \right \}, 
+\end{equation}
+and let $M_0^l(\mathcal{T}_h)$ be the subspace of $M^l(\mathcal{T}_h)$ consisting of continuous piecewise polynomials
+\begin{equation*}
+M_0^l(\mathcal{T}_h) := M^l(\mathcal{T}_h) \cap {C}(\Omega). 
+\end{equation*}
+%%%%%%%%%%%%%%%%
+Then the finite element space for the discontinuous Galerkin method is defined as 
+\begin{equation}
+V^{\textsf{DG}}_{h,l} (\mathcal{T}_h) =M^l (T_h), 
+\end{equation}
+and on the other hand, the enriched Galerkin finite element space is defined as
+\begin{equation}
+V_{h,l}^{\textsf{EG}}(\mathcal{T}_h)  := M^l_0(\mathcal{T}_h) + M^0(\mathcal{T}_h),
+\end{equation}
+where $l \geq 1$ \cite{BecBurHansLar2003,LeeLeeWhi15,sunliu2009}.
+Figure \ref{fig:dofs} illustrates the different degrees of freedom for CG, DG, and EG methods on a two dimensional Cartesian grid ($\mathbb{Q}$) with a polynomial order $l=1$. 
+
+
+
+\section{Machine Learning}
+
+\section{Numerical Results}
+
+\subsection{Darcy with IIPG and SIPG}
+
+\subsection{Darcy with Direct solver and Iterative solver}
+
+\subsection{Biot}
+
+
+
+
+
+%\bibliographystyle{natbib}
+\bibliography{lit}
+\end{document}
+
