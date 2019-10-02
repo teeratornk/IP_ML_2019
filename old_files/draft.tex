@@ -95,20 +95,25 @@ Sanghyun, Meen}
 
 \section{Introduction}
 
-Discontinuous Galerkin finite element method (DG) is employed for various realistic applications, especially with discontinuous coefficients. The main advantages for DG are XXX, YYY, and ZZZ. Mathematical analyses for stability and error convergence are shown in for elliptic problems in [citation]. 
-These studies are proved under an assumption on the interior penalty, and it is   crucial to employ the interior penalty term being sufficiently large enough. 
-Several studies of the lower bounds for the penalty parameter have been obtained in \cite{ainsworth2007posteriori,ainsworth2010fully,ainsworth2009constant,epshteyn2007estimation,shahbazi2005explicit}. Moreover, specific illustrations on the selection of the penalty parameters are shown in \cite{ainsworth2012note}.
+Discontinuous Galerkin finite element method (DG) is one of the most popular non conforming finite elements  employed for various realistic applications, especially with discontinuous coefficients. The idea of DG finite element methods originated from  [74]  and extended by several authors including 
+[38,118,84,4], which were so called Interior Penalty Galerkin Methods.  
+Perhaps, the most popular and successful methods in terms of the local flux conservation is DG. 
+DG can deal robustly with general partial differential equations as well as with equations whose 
+type changes within the computational domain 
+such as from advection dominated to diffusion dominated \cite{Sun2005, Sun2006}. [77] 
+They are naturally suited for multi-physics applications, and for problems with highly varying material properties \cite{ref1,riviere2000discontinuous,CNM:CNM464}.  [26,28]
 
-%Recently, EG?
+However, one of the main disadvantage of DG is that the stability and the accuracy of the scheme depends on the interior penalty  parameter that needs to be chosen. 
+These numerical analyses of DG are proved under an assumption on the interior penalty parameter, and it is crucial to employ the optimal interior penalty parameter. 
+Generally, if the parameter is too large, DG schemes converge to the continuous Galerkin finite element methods, and ofter suffer from the linear solver. If the parameter is too small, the stability of the scheme is not guaranteed. 
 
-A lower bound for the standard DG was given for the case when there is an arbitrary number of hanging nodes in the mesh and elements of arbitrary nonuniform polynomial order in \cite{shahbazi2005explicit}.
-This bound was improved upon in \cite{ainsworth2009constant} in the case when there was at most one hanging node per edge of each element, which lay at the midpoint of the edge. 
-In cases where the diffusion coefficient is discontinuous, it has been suggested that a nonstandard DG is used in which a weighted interior penalty term is employed \cite{ern2008posteriori,ern2009discontinuous}. 
-It is of considerable practical interest to
-determine bounds on the interior penalty parameter sufficient for this variant of DG to give
-a well-defined numerical approximation. 
-A bound which is
-applicable to the case when there is an arbitrary number of hanging nodes and elements may be of arbitrary nonuniform polynomial order is shown in  \cite{ainsworth2012note}.
+
+Thus, several studies of the lower bounds for the penalty parameter have been obtained in \cite{ainsworth2007posteriori,ainsworth2010fully,ainsworth2009constant,epshteyn2007estimation,shahbazi2005explicit}. 
+A lower boundary for the interior penalty parameter for arbitrary nonuniform polynomial order was first shown in 
+ \cite{shahbazi2005explicit} and it was improved in \cite{ainsworth2009constant} by assuming at most one hanging node per edge of each element. In \cite{ern2008posteriori,ern2009discontinuous}, a weighted interior penalty parameters for the cases where the diffusion coefficient is discontinuous were studied. 
+Moreover, specific illustrations on the selection of the penalty parameters are shown in \cite{ainsworth2012note}.
+
+In this paper, we propose the method to find the optimal interior penalty parameters by employing the neural networks and machine learning processes. 
 
 
 Conclusion

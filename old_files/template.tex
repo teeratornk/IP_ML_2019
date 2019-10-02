@@ -13,10 +13,12 @@
 \usepackage{microtype}      % microtypography
 \usepackage{lipsum}
 
-\usepackage{amsmath,amssymb,amsthm,amsfonts,afterpage,hyperref}
+\usepackage{amssymb}
+\usepackage{lineno,hyperref}
+\usepackage{amsmath}
 \usepackage[makeroom]{cancel}
 \usepackage{mathtools}
-\usepackage{amscd,subeqnarray}
+\usepackage{subeqnarray}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
  
@@ -34,12 +36,15 @@
 \usepackage{lineno}
 \usepackage{ragged2e}
 \usepackage{subfig}
+\usepackage{bm}
 \usepackage{stmaryrd}
+
+\usepackage{multirow}
 
 \usepackage{soul}
 %\usepackage{SIunits}
 %\usepackage{psfig}
-\usepackage{boldfonts}
+%\usepackage{boldfonts}
 \usepackage{symbols}
 \newtheorem{remark}{Remark}
 
@@ -83,14 +88,14 @@ bottom = 40mm
 \def\p{\partial}
 \newtheorem{form}{Formulation}
 
-\usepackage{sectsty}
+\usepackage{sectsty} 
 \sectionfont{\large}
 
 \title{Choice of interior penalty coefficient for interior penalty discontinuous Galerkin method by employing machine learning}
 
 
 \author{
-  David S.~Hippocampus\thanks{Use footnote for providing further
+  Sanghynu Lee\thanks{Use footnote for providing further
     information about author (webpage, alternative
     address)---\emph{not} for acknowledging funding agencies.} \\
   Department of Computer Science\\
@@ -169,7 +174,7 @@ We consider the following elliptic system,
 \begin{equation}\label{eq-main}
 \left\{ 
 \begin{array}{rll} 
--\nabla \cdot (K \nabla p)
+-\nabla \cdot \left( \bm{K} \nabla p \right)
 &=  f
 & \textrm{in}~\Omega, \\
 u&=0& \textrm{on}~\partial \Omega,
@@ -194,7 +199,7 @@ where $H_0^1(\Omega):= \{  v \in H^1(\Omega): v = 0 \text{ on } \partial \Omega 
 \section{Numerical Discretizations}
 \subsection{Finite element approximations}
 Let $\mathcal{T}_h$ be the shape-regular (in the sense of Ciarlet)  triangulation by a family of partitions of $\O$ into $d$-simplices $\K$ (triangles/squares in $d=2$ or tetrahedra/cubes in $d=3$). We denote by $h_{\K}$ the diameter of $\K$ and we set $h=\max_{\K \in \Th} h_{\K}$.  
-Also we denote by $\Eh$ the set of all edges and by $\Eho$ and $\Ehb$ the collection of all interior and boundary edges, respectively. 
+Also we denote by $\Eh$ the set of all edges and by $\Eho$ and $\mathcal{E}^{\partial}_{h}$ the collection of all interior and boundary edges, respectively. 
 In the following notation, we assume edges for two dimension but the results hold analogously for faces in three dimensional case.
 The space $H^{s}(\Th)$ $(s\in \mathbb{R})$ is the set of element-wise $H^{s}$ functions on $\mathcal{T}_h$, and $L^{2}(\Eh)$ refers to the set of functions whose traces on the elements of $\Eh$ are square integrable. Let $\mathbb{Q}_l(\K)$ denote the space of polynomials of partial degree at most $l$. 
 Throughout the paper, we use the standard notation for Sobolev spaces and their norms. For example, let $E \subseteq \Omega$, then $\|\cdot\|_{1,E}$ and $|\cdot|_{1,E}$ denote the $H^1(E)$ norm and seminorm, respectively. 
@@ -204,22 +209,22 @@ $$
 e = \partial \K^{+}\cap \partial \K^{-}
 $$
 and we denote by $h_{e}$ the length of the edge $e$. 
-Let $\n^{+}$ and $\n^{-}$ be the outward normal unit vectors to  $\partial T^+$ and $\partial T^-$, respectively ($\n^{\pm} :=\n_{|\K^{\pm}}$). 
-For any given function $\xi$ and vector function $\bxi$, defined on the triangulation $\mathcal{T}_h$, we denote $\xi^{\pm}$ and $\bxi^{\pm}$ by the restrictions of $\xi$ and $\bxi$ to $T^\pm$, respectively. 
+Let $\bm{\mathrm{n}}^{+}$ and $\bm{\mathrm{n}}^{-}$ be the outward normal unit vectors to  $\partial T^+$ and $\partial T^-$, respectively ($\bm{\mathrm{n}}^{\pm} :=\bm{\mathrm{n}}_{|\K^{\pm}}$). 
+For any given function $\xi$ and vector function $\bm{\xi}$, defined on the triangulation $\mathcal{T}_h$, we denote $\xi^{\pm}$ and $\bm{\xi}^{\pm}$ by the restrictions of $\xi$ and $\bm{\xi}$ to $T^\pm$, respectively. 
 
-Next, we define the  average $\av{\cdot}$ as follows: for $\zeta \in L^2(\mathcal{T}_h)$ and $\taub \in L^2(\mathcal{T}_h)^d$,
+Next, we define the  average $\av{\cdot}$ as follows: for $\zeta \in L^2(\mathcal{T}_h)$ and $\bm{\tau} \in L^2(\mathcal{T}_h)^d$,
 \begin{equation}\label{av-w}
 \av{\zeta} := \frac{1}{2} (\zeta^+ + \zeta^- )
 \quad \mbox{ and } \quad 
-\av{\taub} := \frac{1}{2} (\taub^+ +   \taub^-) \quad \mbox{on } e\in
+\av{\bm{\tau}} := \frac{1}{2} (\bm{\tau}^+ +   \bm{\tau}^-) \quad \mbox{on } e\in
 \Eho.
 \end{equation}
-On the other hand, for $e \in \Ehb$, we set $\av{\zeta} :=   \zeta$ and $\av{\taub} :=  \taub$. 
+On the other hand, for $e \in \mathcal{E}^{\partial}_{h}$, we set $\av{\zeta} :=   \zeta$ and $\av{\bm{\tau}} :=  \bm{\tau}$. 
 The jump across the interior edge will be defined as 
 \begin{align*}
-\jump{\zeta} = \zeta^+\n^++\zeta^-\n^- \quad \mbox{ and } \quad \jtau = \taub^+\cdot\n^+ + \taub^-\cdot\n^- \quad \mbox{on } e\in \Eho. 
+\jump{\zeta} = \zeta^+\bm{\mathrm{n}}^++\zeta^-\bm{\mathrm{n}}^- \quad \mbox{ and } \quad \jtau = \bm{\tau}^+\cdot\bm{\mathrm{n}}^+ + \bm{\tau}^-\cdot\bm{\mathrm{n}}^- \quad \mbox{on } e\in \Eho. 
 \end{align*}
-For  $e \in \Ehb$, we let $\jump{\zeta} :=  \zeta \bn$ and $\jump{\taub} :=  \taub \cdot \bn$. 
+For  $e \in \mathcal{E}^{\partial}_{h}$, we let $\jump{\zeta} :=  \zeta \bm{n}$ and $\jump{\bm{\tau}} :=  \bm{\tau} \cdot \bm{n}$. 
 
 We  introduce the space of piecewise discontinuous polynomials of degree $l$ by
 \begin{equation}
@@ -253,9 +258,73 @@ Figure \ref{fig:dofs} illustrates the different degrees of freedom for CG, DG, a
 
 \subsection{Darcy with IIPG and SIPG}
 
+\begin{equation} \label{eq:poisson}
+-\nabla \cdot \kappa \nabla  p=g,
+\end{equation}
+
 \meen{Note that we have results for 1. IIPG with direct solver, 2. IIPG with iterative solver, 3. SIPG with direct solver, and 4. SIPG with iterative solver}
 
 \subsection{Darcy with Direct solver and Iterative solver}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{The lowest $\beta$ value that provides the optimal convergence rate solution with different $k$, discretization, and solver. Note that $\bm{\kappa}$ is homogeneous.}
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \multirow{2}[4]{*}{$k$} & \multicolumn{2}{c|}{SIPG} & \multicolumn{2}{c|}{IIPG} \\
+\cline{2-5}          & \multicolumn{1}{l|}{direct solver} & \multicolumn{1}{l|}{iterative solver} & \multicolumn{1}{l|}{direct solver} & \multicolumn{1}{l|}{iterative solver} \\
+    \hline
+    1     & 1.11  & 1.11  & 0.83  & 0.83 \\
+    \hline
+    2     & 2.80  & 2.80  & 2.74  & 2.74 \\
+    \hline
+    3     & 5.79  & 5.79  & 5.68  & 5.68 \\
+    \hline
+    4     & 9.99  & 9.99  & 9.79  & 9.79 \\
+    \hline
+    5     & 14.97 & 14.97 & 14.67 & 14.67 \\
+    \hline
+    \end{tabular}%
+  \label{tab:ell_homo_beta_unstable}%
+\end{table}%
+
+\begin{table}[htbp]
+  \centering
+  \caption{The lowest $\beta$ value that provides the optimal convergence rate solution with different type of exact solution (continuous or discontinuous), discretization, and solver. Note that $\bm{\kappa}$ is heterogeneous, and $k=1$.}
+    \begin{tabular}{|l|r|r|r|r|}
+    \hline
+    \multirow{2}[4]{*}{} & \multicolumn{2}{c|}{SIPG} & \multicolumn{2}{c|}{IIPG} \\
+\cline{2-5}          & \multicolumn{1}{l|}{direct solver} & \multicolumn{1}{l|}{iterative solver} & \multicolumn{1}{l|}{direct solver} & \multicolumn{1}{l|}{iterative solver} \\
+    \hline
+    continuos soluiton & \multicolumn{1}{c|}{1.11} & \multicolumn{1}{c|}{1.11} & \multicolumn{1}{c|}{0.83} & \multicolumn{1}{c|}{0.83} \\
+    \hline
+    discontinuous soluiton &       &       &       &  \\
+    \hline
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+\begin{figure}[h!]
+   \centering
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_sipg_it_k1.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_sipg_it_k2.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_sipg_it_k3.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_sipg_it_k4.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_sipg_it_k5.pdf}
+   \caption{Number of linear iterative solver of SIPG for (\textbf{a}) $k=1$, (\textbf{b}) $k=2$, (\textbf{c}) $k=3$, (\textbf{d}) $k=4$, and (\textbf{e}) $k=5$. Note that each line represents different value of $\bm{\kappa}$, and the error bar shows mean and standard derivation of each number of iteration.}
+   \label{fig:ell_homo_sipg_noi}
+\end{figure}
+
+\begin{figure}[h!]
+   \centering
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_iipg_it_k1.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_iipg_it_k2.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_iipg_it_k3.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_iipg_it_k4.pdf}
+        \includegraphics[width=7.0cm, height=7.0cm]{pictures/ell_homo_diff_k_iipg_it_k5.pdf}
+   \caption{Number of linear iterative solver of IIPG for (\textbf{a}) $k=1$, (\textbf{b}) $k=2$, (\textbf{c}) $k=3$, (\textbf{d}) $k=4$, and (\textbf{e}) $k=5$. Note that each line represents different value of $\bm{\kappa}$, and the error bar shows mean and standard derivation of each number of iteration.}
+   \label{fig:ell_homo_iipg_noi}
+\end{figure}
 
 \subsection{Biot}
 
