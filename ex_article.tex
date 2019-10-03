@@ -877,7 +877,7 @@ TODO add oscillation examples
 \end{equation}
 
 \noindent
-and
+and we define a ratio between $\kappa_2$ and $\kappa_1$ as:
 
 \begin{equation}\label{eq:k_mult}
 \kappa_{mult} = \frac{{\kappa}_2 }{{\kappa}_1 }
@@ -928,6 +928,7 @@ and
 \end{algorithmic}
 \end{algorithm}
 
+Similar to the previous sections, we begin with the $\chi^2$ test to find the statistically significant explanatory variables. The $\chi^2$ test result is presented in Table \ref{tab:linear_regression_p_value_biot}, and it show that all variables, ${\kappa}_1$, ${\kappa}_2$, $\kappa_{mult}$, and $h$, have p-value less than 0.025. Therefore, these variables are included as independent variables to develop following predictive models.
 
 \begin{table}[!ht]
   \centering
@@ -936,9 +937,9 @@ and
     \hline
     Variable & p-value \\
     \hline
-    $\boldsymbol{\kappa}_1$ & $\approx$ 0.00 \\
+    ${\kappa}_1$ & $\approx$ 0.00 \\
     \hline
-    $\boldsymbol{\kappa}_2$ & $\approx$ 0.00 \\
+    ${\kappa}_2$ & $\approx$ 0.00 \\
     \hline
     $\kappa_{mult}$ & $\approx$ 0.00 \\
     \hline
@@ -950,6 +951,7 @@ and
   \label{tab:linear_regression_p_value_biot}%
 \end{table}%
 
+We use the same splitting technique and ratio $[0.8, 0.1, 0.1]$ employed in the previous section. The multi-variable logistic regression \cite{scikit-learn} is read as follows:
 
 \begin{equation} \label{eq:biot_regression_dis}
 \begin{split}
@@ -974,9 +976,7 @@ and
 \end{equation}
 
 \noindent
-where $\alpha = -1.19$, $\gamma_{1} = -0.06$, , $\gamma_{2} = 0.68$, $\gamma_{3} = 5.55$, $\gamma_{4} = -5.49$, and $\gamma_{5} = 0.32$. The accuracy of the logistic regression model is 0.80.
-
-
+where $\alpha = -1.19$, $\gamma_{1} = -0.06$, , $\gamma_{2} = 0.68$, $\gamma_{3} = 5.55$, $\gamma_{4} = -5.49$, and $\gamma_{5} = 0.32$. The accuracy of the logistic regression model is 0.80, and its confusion matrix is presented in Table \ref{tab:biot_cm_logistic}. From this table, one can infer that the number of 'false positive' is much higher compared to that of  'false negative', which may result in the bad solution obtained from the finite element model.
 
 \begin{table}[!ht]
   \centering
@@ -992,6 +992,8 @@ where $\alpha = -1.19$, $\gamma_{1} = -0.06$, , $\gamma_{2} = 0.68$, $\gamma_{3}
     \end{tabular}%
   \label{tab:biot_cm_logistic}%
 \end{table}%
+
+Subsequently, we develop the classification ANN model utilizing five input and one output as shown in Figure \ref{fig:biot_ann_fig} and use number of hidden layer ($n_{hl}$) and number of neuron ($n_n$) for hyper-parameter tuning. ReLU is used as an activation function for each neuron of the hidden layer, and Sigmoid activation function is used for the output layer.
 
 \tikzset{%
   every neuron/.style={
